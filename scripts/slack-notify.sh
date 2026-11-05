@@ -1,6 +1,5 @@
-
 #!/bin/bash
-set -e
+set -euo pipefail
 
 echo "================================"
 echo "Starting Slack Notification"
@@ -16,10 +15,13 @@ unset AWS_SESSION_TOKEN
 unset AWS_PROFILE
 unset AWS_EC2_METADATA_DISABLED
 
-export SLACK_WEBHOOK_URL='<+secrets.getValue("SLACK_WEBHOOK_URL")>'
+if [ -z "${SLACK_WEBHOOK_URL:-}" ]; then
+    echo "ERROR: SLACK_WEBHOOK_URL environment variable is missing."
+    exit 1
+fi
 
-if [ -z "$SLACK_WEBHOOK_URL" ] || [[ "$SLACK_WEBHOOK_URL" == *"secrets.getValue"* ]]; then
-    echo "ERROR: Slack webhook secret is not configured."
+if [[ "$SLACK_WEBHOOK_URL" != https://hooks.slack.com/services/* ]]; then
+    echo "ERROR: Slack webhook URL format is invalid."
     exit 1
 fi
 
@@ -70,4 +72,3 @@ curl --fail --silent --show-error \
 
 echo "Slack notification sent successfully!"
 echo "SLACK NOTIFICATION COMPLETED"
-
