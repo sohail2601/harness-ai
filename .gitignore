@@ -1,8 +1,55 @@
+# Terraform
 .terraform/
 *.tfstate
 *.tfstate.*
 *.tfplan
+*.plan
 tfplan
+terraform.tfstate
+terraform.tfstate.backup
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+
+# Terraform generated files
 plan.json
+destroy.tfplan
+
+# Security scan and AI reports
 checkov-report.json
-reports/*.md
+reports/
+*.sarif
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.venv/
+venv/
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials
+secrets.yaml
+secrets.yml
+
+# Logs
+*.log
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
